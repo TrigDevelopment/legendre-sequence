@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Lib (jacobi)
 
 main :: IO ()
-main = someFunc
+main = putStrLn (show (jacobi 2 11))
