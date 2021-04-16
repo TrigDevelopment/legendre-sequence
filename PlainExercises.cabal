@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1f4fdf87ab29231932186a118d1575139e71fc4ebebcdb1ae43d686f2e96c2ff
+-- hash: 1e449ed808a94c118aa4e600bac34ae896e93e4d1f53f52f637898fa398501d2
 
 name:           PlainExercises
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , integer-logarithms
   default-language: Haskell2010
 
 executable PlainExercises-exe
@@ -46,6 +47,7 @@ executable PlainExercises-exe
   build-depends:
       PlainExercises
     , base >=4.7 && <5
+    , integer-logarithms
   default-language: Haskell2010
 
 test-suite PlainExercises-test
@@ -59,4 +61,5 @@ test-suite PlainExercises-test
   build-depends:
       PlainExercises
     , base >=4.7 && <5
+    , integer-logarithms
   default-language: Haskell2010
