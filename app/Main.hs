@@ -3,9 +3,6 @@ module Main where
 import Lib (jacobi)
 import Data.List (intercalate)
 
-bigPrime_10_12 :: Integer
-bigPrime_10_12 = 1000000000039
-
 -- Сумма символов Якоби на отрезке последовательно идущих чисел
 jacobiRangeSum :: 
   Integer -> -- Начало отрезка
@@ -14,17 +11,6 @@ jacobiRangeSum ::
   Integer
 jacobiRangeSum range_start range_length prime =
   sum [jacobi x prime | x <- take range_length [range_start..]]
-
--- Сумма символов Якоби на отрезках
--- [1, range_length], [p - range_length - 1, p - 1], ...
-jacobiRangesOnQuarters :: 
-  Int -> -- Длина отрезка
-  Integer -> -- Простое число p
-  [Integer]
-jacobiRangesOnQuarters range_length prime =
-  [ jacobiRangeSum start range_length prime 
-  | start <- quarterRangeStarts range_length prime 
-  ]
 
 quarterRangeStarts ::
   Int -> -- Длина отрезка
@@ -73,6 +59,9 @@ report range_length prime =
   intercalate "\n" [rangeReport range_start range_length prime
                    | range_start <- quarterRangeStarts range_length prime
                    ]
+
+bigPrime_10_12 :: Integer
+bigPrime_10_12 = 1000000000039
 
 main :: IO ()
 main = putStrLn $ report 2 bigPrime_10_12
