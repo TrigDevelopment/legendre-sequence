@@ -5,7 +5,7 @@ module Lib
 import Data.List (replicate, transpose)
 import Data.Bool (bool)
 
-jacobi :: Int -> Int -> Int
+jacobi :: Integer -> Integer -> Integer
 jacobi = go
   where
     go 0 1 = 1
