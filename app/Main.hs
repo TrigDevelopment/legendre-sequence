@@ -61,11 +61,26 @@ bigPrime_10_20 = 10089886811898868001
 bigPrime_10_50 :: Integer
 bigPrime_10_50 = 74697529992376396975340788410411701659416034912859
 
-fastReport :: Integer -> String
-fastReport prime = report range_length prime
-  where 
-    range_length = l * integerLog2 (toInteger l)
+rangeLength :: Integer -> Int
+rangeLength prime = l * integerLog2 (toInteger l)
+  where
     l = integerLog2 prime
 
+fastReport :: Integer -> String
+fastReport prime = report (rangeLength prime) prime
+
+ranges :: Integer -> Integer -> Integer -> IO ()
+ranges prime n_ranges start = writeFile name content
+  where
+    name = show n_ranges ++ " ranges starting from " ++ 
+      show start ++ " for prime " ++ show prime ++ 
+      " with length " ++ show range_length ++ ".csv"
+    content = intercalate "\n" $ 
+                [ show n ++ ";" ++ show (jacobiRangeSum n range_length prime)
+                | n <- [start..(start + n_ranges - 1)]
+                ]
+    range_length = rangeLength prime
+
 main :: IO ()
-main = writeFile "output.txt" $ fastReport bigPrime_10_50
+main = ranges bigPrime_10_50 (10^5) (div bigPrime_10_50 4)
+-- main = writeFile "output.txt" $ fastReport bigPrime_10_50
