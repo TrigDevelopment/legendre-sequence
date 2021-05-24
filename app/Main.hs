@@ -58,6 +58,9 @@ bigPrime_10_16 = 1000000000100011
 bigPrime_10_20 :: Integer
 bigPrime_10_20 = 10089886811898868001
 
+bigPrime_10_30 :: Integer
+bigPrime_10_30 = 463598225751976410362851735267
+
 bigPrime_10_50 :: Integer
 bigPrime_10_50 = 74697529992376396975340788410411701659416034912859
 
@@ -81,6 +84,21 @@ ranges prime n_ranges start = writeFile name content
                 ]
     range_length = rangeLength prime
 
+zeroOnes :: Integer -> Integer -> Int -> String
+zeroOnes prime start range_length =
+  concat [show (if jacobi x prime == 1 then 1 else 0) 
+         | x <- [start..(start + toInteger range_length - 1)]
+         ]
+
 main :: IO ()
-main = ranges bigPrime_10_50 (10^5) (div bigPrime_10_50 4)
+main = writeFile "output.txt" $
+  concat [ zeroOnes prime (starts!!i) range_length ++ "\n"
+         | i <- [3,2,1,0,5,4,7,6]
+         ]
+  where
+    starts = quarterRangeStarts range_length prime
+    range_length = 125 * (10^6)
+    prime = bigPrime_10_30
+  
+-- ranges bigPrime_10_50 (10^5) (div bigPrime_10_50 4)
 -- main = writeFile "output.txt" $ fastReport bigPrime_10_50
